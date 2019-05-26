@@ -1,0 +1,51 @@
+---
+title: "gamboostLSS Partial Effects and CI Bands"
+output: html_notebook
+---
+
+
+
+```{r}
+library("gamboostLSS")
+library("R2BayesX")
+
+```
+
+
+```{r}
+data("india", package = "gamboostLSS")
+data("india.bnd", package = "gamboostLSS")
+neighborhood <- bnd2gra(india.bnd)
+```
+
+```{r}
+ctrl <- boost_control(trace = TRUE, mstop = c(mu = 1269, sigma = 84))
+
+mod <- gamboostLSS(stunting ~ bbs(mage) + bbs(mbmi) + bbs(cage) +
+ bbs(cbmi) + bmrf(mcdist, bnd = neighborhood), data = india,
+ families = GaussianLSS(stabilization = "MAD"), control = ctrl)
+```
+```{r}
+emp_risk <- risk(mod, merge = TRUE)
+tail(emp_risk, n = 1)
+```
+
+```{r}
+par(mfrow = c(2, 4), mar = c(5.1, 4.5, 4.1, 1.1))
+plot(mod, which = "bbs", type = "l")
+```
+
+```{r}
+newdat <- data.frame(mbmi = india$mbmi, india[11,-4])
+a <- predict(mod, newdata = newdat, what = "mu")[[1]]
+asd <- data.frame(f_part = a, mbmi = newdat$mbmi) %>% arrange(mbmi)
+plot(india$mbmi, a)
+```
+
+
+
+```{r}
+plot(mod, which = "mbmi", type = "l", parameter = "mu")#, ylim = c(-0.05, 0.05))
+lines(x = asd$mbmi, y = asd$f_part-mean(asd$f_part), col = "red")
+```
+

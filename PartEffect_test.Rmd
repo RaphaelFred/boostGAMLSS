@@ -1,0 +1,91 @@
+---
+title: "PartialEffect_test"
+output: html_document
+---
+The first task is about testing how to obtain the same partial effects as in the gamlss library
+```{r setup, include=FALSE}
+library(gamlss)
+library(tidyverse)
+```
+
+
+
+```{r cars}
+data(aep)
+prop<-with(aep, noinap/los)
+par(mfrow = c(2, 2))
+plot(prop~age, data=aep, cex=los/30)
+plot(prop~sex,data=aep)
+plot(prop~ward,data=aep)
+plot(prop~year,data=aep)
+```
+
+
+
+```{r }
+m1 <- gamlss(y~ward+year+loglos, sigma.fo=~year, family=BB,
+data=aep, trace=FALSE)
+m2 <- gamlss(y~ward+year+loglos, sigma.fo=~year+ward, family=BB,
+data=aep, trace=FALSE)
+m3 <- gamlss(y~ward+year+cs(loglos,df=1), sigma.fo=~year+ward,
+family=BB, data=aep, trace=FALSE)
+m4 <- gamlss(y~ward+year+cs(loglos, df=1)+cs(age, df=1),
+sigma.fo=~year+ward, family=BB, data=aep, trace=FALSE)
+GAIC(m1,m2,m3,m4, k=0) # the global deviance
+GAIC(m1,m2,m3,m4) # AIC
+```
+
+```{r}
+term.plot(m4, pages=1, terms = 3)
+```
+```{r}
+dat <- data.frame(0, 0, aep$loglos, factor(1, levels = levels(aep$sex)), factor(1,levels = levels(aep$ward)) , factor(88,levels = levels(aep$year)), 0, 0)
+colnames(dat) <- colnames(aep)
+a <- predict(m4, newdata = dat, what = "mu")
+plot(dat$loglos, a-mean(a), ylim = c(-2,1.5))
+```
+```{r}
+y_hat_sim <- matrix( ncol = nrow(aep))
+B <- 200
+for (i in 1:B){
+boot_sam <- sample_n(aep, size = nrow(aep), replace = TRUE)
+mod <- gamlss(y~ward+year+cs(loglos, df=1)+cs(age, df=1),
+sigma.fo=~year+ward, family=BB, data=boot_sam, trace=FALSE)
+dat <- data.frame(0, 0, aep$loglos, factor(1, levels = levels(aep$sex)), factor(1,levels = levels(aep$ward)) , factor(88,levels = levels(aep$year)), 0, 0)
+colnames(dat) <- colnames(aep)
+ y_hat_sim <- rbind(y_hat_sim, predict(mod, newdata = dat, what = "mu"))
+}
+```
+```{r}
+medianx <- c()
+mux <- c()
+ci_lo_norm <- c()
+ci_up_norm <- c()
+ci_lo_quant <- c()
+ci_up_quant <- c()
+for (i in 1:nrow(aep)){
+  point_se <- sd(y_hat_sim[-1,i])  
+  medianx[i] <- median(y_hat_sim[-1,i])
+  mux[i] <- mean(y_hat_sim[-1,i])
+  ci_lo_norm[i] <- mux[i] - 1.96 * point_se 
+  ci_up_norm[i] <- mux[i] + 1.96 * point_se
+  ci_lo_quant[i] <- quantile(y_hat_sim[-1,i], 0.05)
+  ci_up_quant[i] <- quantile(y_hat_sim[-1,i], 0.95)
+}  
+```
+
+```{r}
+ci_data <- data.frame(x_obs = dat$loglos, mean_est = mux - mean(mux), median_est = medianx  - mean(mux), ci_lo_quant = ci_lo_quant - mean(mux), ci_up_quant = ci_up_quant - mean(mux), ci_up_norm = ci_up_norm - mean(mux), ci_lo_norm = ci_lo_norm - mean(mux)) %>% arrange(x_obs)
+
+
+```
+```{r}
+plot(x = ci_data$x_obs, y = ci_data$mean_est, ylim = c(-2,1.5))
+lines(x = ci_data$x_obs, ci_data$median_est, col = "blue")
+lines(x = ci_data$x_obs, ci_data$ci_lo_quant, col = "red", lty = "dotted")
+lines(x = ci_data$x_obs, ci_data$ci_up_quant, col = "red", lty = "dotted")
+lines(x = ci_data$x_obs, ci_data$ci_lo_norm, col = "green", lty = "dashed")
+lines(x = ci_data$x_obs, ci_data$ci_up_norm, col = "green", lty = "dashed")
+term.plot(m4, pages=1, terms = 3)
+```
+
