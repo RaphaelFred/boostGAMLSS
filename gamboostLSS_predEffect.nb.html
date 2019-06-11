@@ -178,23 +178,41 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShcIlIyQmF5ZXNYXCIpXG5cbmBgYCJ9 -->
-<pre class="r"><code>library(&quot;R2BayesX&quot;)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShcImdhbWJvb3N0TFNTXCIpXG5gYGAifQ== -->
+<pre class="r"><code>library(&quot;gamboostLSS&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUGFrZXQgkVIyQmF5ZXNYkiB3dXJkZSB1bnRlciBSIFZlcnNpb24gMy41LjIgZXJzdGVsbHRMYWRlIG72dGlnZXMgUGFrZXQ6IEJheWVzWHNyY1xuUGFrZXQgkUJheWVzWHNyY5Igd3VyZGUgdW50ZXIgUiBWZXJzaW9uIDMuNS4yIGVyc3RlbGx0TGFkZSBu9nRpZ2VzIFBha2V0OiBjb2xvcnNwYWNlXG5MYWRlIG72dGlnZXMgUGFrZXQ6IG1nY3ZcblRoaXMgaXMgbWdjdiAxLjgtMjQuIEZvciBvdmVydmlldyB0eXBlICdoZWxwKFwibWdjdi1wYWNrYWdlXCIpJy5cbiJ9 -->
+<!-- rnb-output-begin eyJkYXRhIjoiUGFrZXQg46S847ixZ2FtYm9vc3RMU1PjpLzjuLIgd3VyZGUgdW50ZXIgUiBWZXJzaW9uIDMuNS4yIGVyc3RlbGx0TGFkZSBu5pi847i2dGlnZXMgUGFrZXQ6IG1ib29zdFxuUGFrZXQg46S847ixbWJvb3N046S847iyIHd1cmRlIHVudGVyIFIgVmVyc2lvbiAzLjUuMiBlcnN0ZWxsdExhZGUgbuaYvOO4tnRpZ2VzIFBha2V0OiBwYXJhbGxlbFxuTGFkZSBu5pi847i2dGlnZXMgUGFrZXQ6IHN0YWJzXG5QYWtldCDjpLzjuLFzdGFic+OkvOO4siB3dXJkZSB1bnRlciBSIFZlcnNpb24gMy41LjIgZXJzdGVsbHRUaGlzIGlzIG1ib29zdCAyLjktMS4gU2VlIOOkvOO4sXBhY2thZ2U/bWJvb3N046S847iyIGFuZCDjpLzjuLFuZXdzKHBhY2thZ2UgID0gXCJtYm9vc3RcIinjpLzjuLJcbmZvciBhIGNvbXBsZXRlIGxpc3Qgb2YgY2hhbmdlcy5cblxuXG5BdHRhY2hlIFBha2V0OiDjpLzjuLFnYW1ib29zdExTU+OkvOO4slxuXG5UaGUgZm9sbG93aW5nIG9iamVjdCBpcyBtYXNrZWQgZnJvbSDjpLzjuLFwYWNrYWdlOnN0YXRz46S847iyOlxuXG4gICAgbW9kZWwud2VpZ2h0c1xuIn0= -->
+<pre><code>Paket 㤼㸱gamboostLSS㤼㸲 wurde unter R Version 3.5.2 erstelltLade n昼㸶tiges Paket: mboost
+Paket 㤼㸱mboost㤼㸲 wurde unter R Version 3.5.2 erstelltLade n昼㸶tiges Paket: parallel
+Lade n昼㸶tiges Paket: stabs
+Paket 㤼㸱stabs㤼㸲 wurde unter R Version 3.5.2 erstelltThis is mboost 2.9-1. See 㤼㸱package?mboost㤼㸲 and 㤼㸱news(package  = &quot;mboost&quot;)㤼㸲
+for a complete list of changes.
+
+
+Attache Paket: 㤼㸱gamboostLSS㤼㸲
+
+The following object is masked from 㤼㸱package:stats㤼㸲:
+
+    model.weights</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShcIlIyQmF5ZXNYXCIpXG5gYGAifQ== -->
+<pre class="r"><code>library(&quot;R2BayesX&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUGFrZXQgkVIyQmF5ZXNYkiB3dXJkZSB1bnRlciBSIFZlcnNpb24gMy41LjIgZXJzdGVsbHRMYWRlIG72dGlnZXMgUGFrZXQ6IEJheWVzWHNyY1xuUGFrZXQgkUJheWVzWHNyY5Igd3VyZGUgdW50ZXIgUiBWZXJzaW9uIDMuNS4yIGVyc3RlbGx0TGFkZSBu9nRpZ2VzIFBha2V0OiBjb2xvcnNwYWNlXG5MYWRlIG72dGlnZXMgUGFrZXQ6IG1nY3ZcbkxhZGUgbvZ0aWdlcyBQYWtldDogbmxtZVxuVGhpcyBpcyBtZ2N2IDEuOC0yNC4gRm9yIG92ZXJ2aWV3IHR5cGUgJ2hlbHAoXCJtZ2N2LXBhY2thZ2VcIiknLlxuIn0= -->
 <pre><code>Paket 㤼㸱R2BayesX㤼㸲 wurde unter R Version 3.5.2 erstelltLade n昼㸶tiges Paket: BayesXsrc
 Paket 㤼㸱BayesXsrc㤼㸲 wurde unter R Version 3.5.2 erstelltLade n昼㸶tiges Paket: colorspace
 Lade n昼㸶tiges Paket: mgcv
+Lade n昼㸶tiges Paket: nlme
 This is mgcv 1.8-24. For overview type 'help(&quot;mgcv-package&quot;)'.</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmVpZ2hib3Job29kIDwtIGJuZDJncmEoaW5kaWEuYm5kKVxuXG5gYGAifQ== -->
-<pre class="r"><code>neighborhood &lt;- bnd2gra(india.bnd)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YShcImluZGlhXCIsIHBhY2thZ2UgPSBcImdhbWJvb3N0TFNTXCIpXG5kYXRhKFwiaW5kaWEuYm5kXCIsIHBhY2thZ2UgPSBcImdhbWJvb3N0TFNTXCIpXG5uZWlnaGJvcmhvb2QgPC0gYm5kMmdyYShpbmRpYS5ibmQpXG5gYGAifQ== -->
+<pre class="r"><code>data(&quot;india&quot;, package = &quot;gamboostLSS&quot;)
+data(&quot;india.bnd&quot;, package = &quot;gamboostLSS&quot;)
+neighborhood &lt;- bnd2gra(india.bnd)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiU3RhcnQgbmVpZ2hib3Igc2VhcmNoIC4uLlxucHJvZ3Jlc3M6IDEwJVxucHJvZ3Jlc3M6IDIwJVxucHJvZ3Jlc3M6IDMwJVxucHJvZ3Jlc3M6IDQwJVxucHJvZ3Jlc3M6IDUwJVxucHJvZ3Jlc3M6IDYwJVxucHJvZ3Jlc3M6IDcwJVxucHJvZ3Jlc3M6IDgwJVxucHJvZ3Jlc3M6IDkwJVxucHJvZ3Jlc3M6IDEwMCVcbk5laWdoYm9yIHNlYXJjaCBmaW5pc2hlZC5cbiJ9 -->
 <pre><code>Start neighbor search ...
@@ -209,6 +227,22 @@ progress: 80%
 progress: 90%
 progress: 100%
 Neighbor search finished.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJlZHMgPC0gc3ViYmFnZ2luZyhmb3JtdWxhID0gc3R1bnRpbmcgfiBiYnMobWFnZSkgKyBiYnMobWJtaSkgKyBiYnMoY2FnZSkgKyBiYnMoY2JtaSkgXG4gLCAgZGF0YSA9IGluZGlhLFxuZmFtaWxpZXMgPSBHYXVzc2lhbkxTUyhzdGFiaWxpemF0aW9uID0gXCJNQURcIiksIGNvbnRyb2wgPSBjdHJsLCBrbiA9IDIwMCwgbW4gPSAxMDAsIGNvZWYgPSBcImNibWlcIilcbmBgYCJ9 -->
+<pre class="r"><code>preds &lt;- subbagging(formula = stunting ~ bbs(mage) + bbs(mbmi) + bbs(cage) + bbs(cbmi) 
+ ,  data = india,
+families = GaussianLSS(stabilization = &quot;MAD&quot;), control = ctrl, kn = 200, mn = 100, coef = &quot;cbmi&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoicm93IG5hbWVzIHdlcmUgZm91bmQgZnJvbSBhIHNob3J0IHZhcmlhYmxlIGFuZCBoYXZlIGJlZW4gZGlzY2FyZGVkXG4ifQ== -->
+<pre><code>row names were found from a short variable and have been discarded</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQm9vc3Rpbmcgbm90IHdvcmtkZXIgRXJyb3IgaW4gbWJvb3N0TFNTX2ZpdChmb3JtdWxhID0gZm9ybXVsYSwgZGF0YSA9IGRhdGEsIGZhbWlsaWVzID0gZmFtaWxpZXMsIDogb2JqZWN0ICdjdHJsJyBub3QgZm91bmRcXG5cIlxuIn0= -->
+<pre><code>[1] &quot;Boosting not workder Error in mboostLSS_fit(formula = formula, data = data, families = families, : object 'ctrl' not found\n&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiMVxuRXJyb3IgaW4gVXNlTWV0aG9kKFwicHJlZGljdFwiKSA6IFxuICBubyBhcHBsaWNhYmxlIG1ldGhvZCBmb3IgJ3ByZWRpY3QnIGFwcGxpZWQgdG8gYW4gb2JqZWN0IG9mIGNsYXNzIFwiY2hhcmFjdGVyXCJcbiJ9 -->
+<pre><code>1
+Error in UseMethod(&quot;predict&quot;) : 
+  no applicable method for 'predict' applied to an object of class &quot;character&quot;</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
